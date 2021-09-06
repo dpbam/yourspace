@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-const dateFormat = require("../utils/dateFormat");
+// const dateFormat = require("../utils/dateFormat");
 
 const UserSchema = new Schema(
   {
@@ -15,6 +15,7 @@ const UserSchema = new Schema(
       required: true,
       match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     },
+    // these two lines aren't correct
     thoughts: [ThoughtSchema],
     friends: [UserSchema],
   },

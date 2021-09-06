@@ -7,7 +7,7 @@ const ThoughtSchema = new Schema(
       type: String,
       required: true,
       minlength: 1,
-      maxlength: 128,
+      maxlength: 280,
     },
     createdAt: {
       type: Date,
@@ -31,7 +31,7 @@ const ThoughtSchema = new Schema(
 
 const reactionSchema = new Schema(
   {
-    replyId: {
+    reactionId: {
       type: Schema.Types.ObjectId,
       default: () => new Types.ObjectId(),
     },
