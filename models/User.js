@@ -15,9 +15,19 @@ const UserSchema = new Schema(
       required: true,
       match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     },
-    // these two lines aren't correct
-    thoughts: [ThoughtSchema],
-    friends: [UserSchema],
+    // these two lines are correct?
+    thoughts: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "Thought",
+      },
+    ],
+    friends: [
+      {
+        type: Schema.Types.ObjectId,
+        ref: "User",
+      },
+    ],
   },
   {
     toJSON: {
@@ -28,6 +38,7 @@ const UserSchema = new Schema(
   }
 );
 
+// get total friend count
 UserSchema.virtual("friendCount").get(function () {
   return this.friends.length;
 });

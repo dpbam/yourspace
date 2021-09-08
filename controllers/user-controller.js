@@ -1,11 +1,16 @@
 const { User } = require("../models");
-// maybe another const here? const { db } ?
+const { db } = require("../models/User");
 
 const userController = {
   // get all users
   getAllUsers(req, res) {
     User.find({})
-      // maybe .populate here? What is that again?
+      .populate({
+        path: "thoughts",
+        select: "-__v",
+      })
+      .select("-__v")
+      .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => {
         console.log(err);
@@ -17,10 +22,11 @@ const userController = {
   getUserById({ params }, res) {
     User.findOne({ _id: params.id })
       .populate({
-        // populated thought AND friend data? what is friend data
+        // populated thought AND friend data? what is friend data?
         path: "thoughts",
         select: "-__v",
       })
+      .select("-__v")
       .then((dbUserData) => {
         if (!dbUserData) {
           res.status(404).json({ message: "No user found with this id." });
@@ -49,7 +55,7 @@ const userController = {
     })
       .then((dbUserData) => {
         if (!UserData) {
-          res.status(404).json({ message: "No user found with this id" });
+          res.status(404).json({ message: "No user found with this id." });
           return;
         }
         res.json(dbUserData);
