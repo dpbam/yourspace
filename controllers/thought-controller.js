@@ -92,8 +92,8 @@ const thoughtController = {
     console.log(body);
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
-      { $push: { replies: body } },
-      { new: true, runValidators: true }
+      { $push: { reactions: body } },
+      { new: true }
     )
       .then((dbUserData) => {
         if (!dbUserData) {
