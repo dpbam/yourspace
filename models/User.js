@@ -1,5 +1,5 @@
 const { Schema, model } = require("mongoose");
-// const dateFormat = require("../utils/dateFormat");
+// const Thought = require("./Thought");
 
 const UserSchema = new Schema(
   {
@@ -15,7 +15,7 @@ const UserSchema = new Schema(
       required: true,
       match: [/.+@.+\..+/, "Please enter a valid e-mail address"],
     },
-    // these two lines are correct?
+
     thoughts: [
       {
         type: Schema.Types.ObjectId,

@@ -14,7 +14,7 @@ const thoughtController = {
 
   //   get a thought by its _id /api/thoughts/:thoughtId
   getThoughtById({ params }, res) {
-    Thought.findOne({ _id: params.id })
+    Thought.findOne({ _id: params.thoughtId })
       .then((dbUserData) => {
         if (!dbUserData) {
           res.status(404).json({ message: "No thought found with this id." });
@@ -50,13 +50,11 @@ const thoughtController = {
   },
 
   //   PUT to update a thought by its _id
-  updateThoughtById({ params }, res) {
-    Thought.findOneAndUpdate({ _id: params.thoughtId })
+  updateThoughtById({ params, body }, res) {
+    Thought.findOneAndUpdate({ _id: params.thoughtId }, body)
       .then((dbUserData) => {
         if (!dbUserData) {
-          res
-            .status(404)
-            .json({ message: "No user thought found with this id." });
+          res.status(404).json({ message: "No thought found with this id." });
           return;
         }
         res.json(dbUserData);
@@ -73,7 +71,7 @@ const thoughtController = {
         }
         return User.findOneAndUpdate(
           { _id: params.userId },
-          { $pull: { comments: params.thoughtId } },
+          { $pull: { thoughts: params.thoughtId } },
           { new: true }
         );
       })
