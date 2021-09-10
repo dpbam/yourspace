@@ -105,12 +105,16 @@ const thoughtController = {
 
   //   delete reaction /api/thoughts/:thoughtId/reactions
   removeReaction({ params }, res) {
+    // console.log("this got called");
     Thought.findOneAndUpdate(
       { _id: params.thoughtId },
       { $pull: { reactions: { reactionId: params.reactionId } } },
       { new: true }
     )
-      .then((dbUserData) => res.json(dbUserData))
+      .then((dbUserData) => {
+        // console.log(res.json(dbUserData));
+        res.json(dbUserData);
+      })
       .catch((err) => res.json(err));
   },
 };
