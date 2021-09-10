@@ -9,6 +9,10 @@ const userController = {
         path: "thoughts",
         select: "-__v",
       })
+      .populate({
+        path: "friends",
+        select: "-__v",
+      })
       .select("-__v")
       .sort({ _id: -1 })
       .then((dbUserData) => res.json(dbUserData))
@@ -24,6 +28,10 @@ const userController = {
       .populate({
         // populated thought AND friend data
         path: "thoughts",
+        select: "-__v",
+      })
+      .populate({
+        path: "friends",
         select: "-__v",
       })
       .select("-__v")
@@ -89,7 +97,7 @@ const userController = {
   },
   // /api/users/:userId/friends/:friendId
   // DELETE to remove a friend from a user's friend list
-  removeFriend({ params, body }, res) {
+  removeFriend({ params }, res) {
     User.findOneAndDelete({ _id: params.id })
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
