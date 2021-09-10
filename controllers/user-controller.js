@@ -88,7 +88,7 @@ const userController = {
   // POST to add a new friend to a user's friend list
   addFriend({ params, body }, res) {
     User.findOneAndUpdate(
-      { _id: params.id },
+      { _id: params.userId },
       { $push: { friends: body } },
       { new: true }
     )
@@ -98,7 +98,7 @@ const userController = {
   // /api/users/:userId/friends/:friendId
   // DELETE to remove a friend from a user's friend list
   removeFriend({ params }, res) {
-    User.findOneAndDelete({ _id: params.id })
+    User.findOneAndDelete({ _id: params.friendId })
       .then((dbUserData) => res.json(dbUserData))
       .catch((err) => res.status(400).json(err));
   },
